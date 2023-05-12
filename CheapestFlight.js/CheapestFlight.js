@@ -8,15 +8,14 @@
  */
 var findCheapestPrice = function(n, flights, src, dst, k) {
   const grafo = Array(n).fill(null).map(() => Array(n).fill(Infinity));
-  
-  
-  for (const [origem, destino, preco] of flights) {
-    grafo[origem][destino] = preco;
+
+  for (const [from, to, price] of flights) {
+    grafo[from][to] = price;
   }
-  
-  const fila = new BinaryHeap(([cidA, precA, paradasA], [cidB, precB, paradasB]) => {
-    if (precA !== precB) {
-      return precA - precB;
+
+  const fila = new BinaryHeap(([cidA, custoA, paradasA], [cidB, custoB, paradasB]) => {
+    if (custoA !== custoB) {
+      return custoA - custoB;
     } else if (paradasA !== paradasB) {
       return paradasA - paradasB;
     } else {
@@ -26,6 +25,9 @@ var findCheapestPrice = function(n, flights, src, dst, k) {
 
   fila.insert([src, 0, k + 1]);
 
+  const memo = new Array(n).fill(null).map(() => Array(k + 2).fill(Infinity));
+  memo[src][0] = 0;
+
   while (fila.size > 0) {
     const [cidade, custo, paradas] = fila.extractRoot();
 
@@ -33,14 +35,17 @@ var findCheapestPrice = function(n, flights, src, dst, k) {
       return custo;
     }
 
-    if (paradas === 0) {
+    if (paradas === 0 || custo > memo[cidade][paradas]) {
       continue;
     }
 
-    for (let vizinho = 0; vizinho < n; vizinho++) {
-      if (graph[cidade][vizinho] !== Infinity) {
-        const newcusto = custo + graph[cidade][vizinho];
-        fila.insert([vizinho, newcusto, paradas - 1]);
+    for (let neighbor = 0; neighbor < n; neighbor++) {
+      if (grafo[cidade][neighbor] !== Infinity) {
+        const novoCusto = custo + grafo[cidade][neighbor];
+        if (novoCusto < memo[neighbor][paradas - 1]) {
+          memo[neighbor][paradas - 1] = novoCusto;
+          fila.insert([neighbor, novoCusto, paradas - 1]);
+        }
       }
     }
   }
