@@ -14,28 +14,36 @@ var findCheapestPrice = function(n, flights, src, dst, k) {
     grafo[origem][destino] = preco;
   }
   
-  const fila = [[src, 0, k + 1]];
-  
-  while (fila.length > 0) {
-    
-    fila.sort((a, b) => a[1] - b[1]); 
-    const [cidade, cost, paradas] = fila.shift();
-    
-    if (cidade === dst) {
-      return cost;
+  const fila = new BinaryHeap(([cidA, precA, paradasA], [cidB, precB, paradasB]) => {
+    if (precA !== precB) {
+      return precA - precB;
+    } else if (paradasA !== paradasB) {
+      return paradasA - paradasB;
+    } else {
+      return cidA - cidB;
     }
-    
+  });
+
+  fila.insert([src, 0, k + 1]);
+
+  while (fila.size > 0) {
+    const [cidade, custo, paradas] = fila.extractRoot();
+
+    if (cidade === dst) {
+      return custo;
+    }
+
     if (paradas === 0) {
       continue;
     }
-    
-    for (let neighbor = 0; neighbor < n; neighbor++) {
-      if (grafo[cidade][neighbor] !== Infinity) {
-        const newCost = cost + grafo[cidade][neighbor];
-        fila.push([neighbor, newCost, paradas - 1]);
+
+    for (let vizinho = 0; vizinho < n; vizinho++) {
+      if (graph[cidade][vizinho] !== Infinity) {
+        const newcusto = custo + graph[cidade][vizinho];
+        fila.insert([vizinho, newcusto, paradas - 1]);
       }
     }
   }
-  
+
   return -1;
 };
