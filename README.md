@@ -10,21 +10,19 @@
 | 20/0026551  |  Rafael Xavier Canabrava |
 
 ## Sobre 
-Exercícios relacionados aos assuntos abordados na disciplina no módulo de Grafos 2
+Exercícios relacionados aos assuntos abordados na disciplina no módulo de Grafos 2 utilizando os algoritmos passados em aula
 
 ## Screenshots
 Adicione 3 ou mais screenshots do projeto em funcionamento.
 
 ## Instalação 
-**Linguagem**: xxxxxx<br>
-**Framework**: (caso exista)<br>
-Descreva os pré-requisitos para rodar o seu projeto e os comandos necessários.
+**Linguagem**: Javascript<br>
+É necessário ter o NodeJs instalado para execução
 
-## Uso 
-Explique como usar seu projeto caso haja algum passo a passo após o comando de execução.
 
 ## Outros 
-Quaisquer outras informações sobre seu projeto podem ser descritas abaixo.
+Dentro da pasta do exercício execute a main com o seguinte comando: **node main.js**
+
 
 
 
