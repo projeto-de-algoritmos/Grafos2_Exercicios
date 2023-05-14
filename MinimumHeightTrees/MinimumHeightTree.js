@@ -1,58 +1,46 @@
 /**
  * @param {number} n
- * @param {number[][]} aresta
+ * @param {number[][]} edges
  * @return {number[]}
  */
-var findminAlturaTrees = function(n, aresta) {
-    if (n === 1) return [0];
+var findMinHeightTrees = function(n, edges) {
+    if (n === 1) return [0]; 
   
-   
-    const grafo = new Array(n).fill(0).map(() => []);
-    const altura = new Array(n).fill(0);
+    const graph = new Array(n).fill(0).map(() => []);
+    const degrees = new Array(n).fill(0);
   
-    for (const [a, b] of aresta) {
-      grafo[a].push(b);
-      grafo[b].push(a);
+    for (const [a, b] of edges) {
+      graph[a].push(b);
+      graph[b].push(a);
+      degrees[a]++;
+      degrees[b]++;
     }
   
-    function pegarAltura(no, pai) {
-      let altura = 0;
-      for (const vizinho of grafo[no]) {
-        if (vizinho !== pai) {
-          altura = Math.max(altura, 1 + pegarAltura(vizinho, no));
-        }
-      }
-      return altura;
+    // Inicializar a lista de folhas
+    const leaves = [];
+    for (let i = 0; i < n; i++) {
+      if (degrees[i] === 1) leaves.push(i);
     }
   
-   //Kruskal
+    // Processar as folhas iterativamente
     while (n > 2) {
-      
-      for (let i = 0; i < n; i++) {
-        altura[i] = pegarAltura(i, -1);
-      }
+      const leavesSize = leaves.length;
+      n -= leavesSize;
   
-      
-      let minAltura = Infinity;
-      let arestaMin = -1;
+      for (let i = 0; i < leavesSize; i++) {
+        const leaf = leaves.shift();
+        degrees[leaf]--;
   
-      for (let i = 0; i < aresta.length; i++) {
-        const [a, b] = aresta[i];
-        const alturaum = altura[a] + altura[b];
-  
-        if (alturaum < minAltura) {
-          minAltura = alturaum;
-          arestaMin = i;
+        for (const neighbor of graph[leaf]) {
+          degrees[neighbor]--;
+          if (degrees[neighbor] === 1) {
+            leaves.push(neighbor);
+          }
         }
       }
-  
-      const [remov1, remov2] = aresta.splice(arestaMin, 1)[0];
-      grafo[remov1].splice(grafo[remov1].indexOf(remov2), 1);
-      grafo[remov2].splice(grafo[remov2].indexOf(remov1), 1);
-  
-      n--;
     }
   
-    return aresta; 
+    return leaves; // Raízes das MHTs
   };
+  
   
