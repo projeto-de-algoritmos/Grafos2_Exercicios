@@ -41,4 +41,12 @@ var findMinHeightTrees = function(n, edges) {
     return folhas; 
   };
   
+  function main() {
+    const n = 4;
+    const edges = [[1,0],[1,2],[1,3]];
+    const result = findMinHeightTrees(n, edges);
+    console.log(result);
+  }
+  
+  main();
   
