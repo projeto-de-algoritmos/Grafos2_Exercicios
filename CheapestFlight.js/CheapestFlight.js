@@ -6,6 +6,9 @@
  * @param {number} k
  * @return {number}
  */
+
+const BinaryHeap = require('./heap');
+
 var findCheapestPrice = function(n, flights, src, dst, k) {
   const grafo = Array(n).fill(null).map(() => Array(n).fill(Infinity));
 
@@ -52,3 +55,16 @@ var findCheapestPrice = function(n, flights, src, dst, k) {
 
   return -1;
 };
+
+function main() {
+  const n = 4;
+  const flights = [[0, 1, 100], [1, 2, 200], [0, 2, 500], [2, 3, 50], [1, 3, 100]];
+  const src = 0;
+  const dst = 3;
+  const k = 1;
+
+  const cheapestPrice = findCheapestPrice(n, flights, src, dst, k);
+  console.log("Cheapest price:", cheapestPrice);
+}
+
+main();
