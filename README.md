@@ -21,7 +21,7 @@ Adicione 3 ou mais screenshots do projeto em funcionamento.
 
 
 ## Outros 
-Dentro da pasta do exercício execute a main com o seguinte comando: **node main.js**
+Dentro da pasta do exercício execute o arquivo com o seguinte comando: **node arquivo.js**
 
 
 
