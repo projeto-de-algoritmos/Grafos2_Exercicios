@@ -13,7 +13,10 @@
 Exercícios relacionados aos assuntos abordados na disciplina no módulo de Grafos 2 utilizando os algoritmos passados em aula
 
 ## Screenshots
-Adicione 3 ou mais screenshots do projeto em funcionamento.
+![Screenshot 1](./screenshots/img1.png)
+![Screenshot 2](./screenshots/img2.png)
+![Screenshot 3](./screenshots/img3.png)
+![Screenshot 4](./screenshots/img4.png)
 
 ## Instalação 
 **Linguagem**: Javascript<br>
